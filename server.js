@@ -7,7 +7,7 @@ app.use(function (request, response, next) {
     if (request.headers['x-forwarded-proto'] === 'http') {
         next();
     } else {
-        response.redirect('https://' + request.hostname + request.url);
+        response.redirect('http://' + request.hostname + request.url);
     }
 });
 
