@@ -17,7 +17,7 @@ module.exports = {
         var encodedLocation = encodeURIComponent(location);
         var requestURL = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
         return axios.get(requestURL).then(function (response) {
-            debugger;
+            // debugger;
             if (response.data && response.data.cod && response.data.message) {
                 if (response.data && response.data.message) {
                     throw new Error(response.data.message);
