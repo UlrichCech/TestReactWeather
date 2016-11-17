@@ -10,34 +10,40 @@ var Nav = React.createClass({
     },
     render: function () {
         return (
-            <div className="top-bar">
-                <div className="top-bar-left">
-                    <ul className="menu">
-                        <li className="menu-text">
-                            React Weather App
-                        </li>
-                        <li>
-                            <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Get Weather</IndexLink>
-                        </li>
-                        <li>
-                            <Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link>
-                        </li>
-                        <li>
-                            <Link to="/examples" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Examples</Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="top-bar-right">
-                    <form onSubmit={this.onSearch}>
+            <div>
+                {/*<div className="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">*/}
+                    {/*<button className="menu-icon" type="button" data-toggle />*/}
+                    {/*<div className="title-bar-title">Menu</div>*/}
+                {/*</div>*/}
+                <div id="main-menu" className="top-bar">
+                    <div className="top-bar-left">
                         <ul className="menu">
-                            <li>
-                                <input type="search" placeholder="Search weather"/>
+                            <li className="menu-text">
+                                React Weather App
                             </li>
                             <li>
-                                <input type="submit" className="button" value="Get Weather"/>
+                                <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Get Weather</IndexLink>
+                            </li>
+                            <li>
+                                <Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link>
+                            </li>
+                            <li>
+                                <Link to="/examples" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Examples</Link>
                             </li>
                         </ul>
-                    </form>
+                    </div>
+                    <div className="top-bar-right">
+                        <form onSubmit={this.onSearch}>
+                            <ul className="menu">
+                                <li>
+                                    <input type="search" placeholder="Search weather"/>
+                                </li>
+                                <li>
+                                    <input type="submit" className="button" value="Get Weather"/>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
                 </div>
             </div>
         );
