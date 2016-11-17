@@ -14,7 +14,7 @@ var WeatherMessage = React.createClass({
             <div>
                 {
                     (typeof cityName === 'string' && cityName.length > 0) &&
-                    <p>It is {this.props.temperature} °C in {this.props.city}</p>
+                    <h3 className="text-center">It is {this.props.temperature} °C in {this.props.city}</h3>
                 }
             </div>
         );
