@@ -1,12 +1,14 @@
 var React = require('react');
 var WeatherForm = require('./WeatherForm');
 var WeatherMessage = require('./WeatherMessage');
+var ErrorModal = require('./ErrorModal');
 var OpenWeatherMapAPI = require('../openWeaterMap/OpenWeatherMapAPI');
 
 var Weather = React.createClass({
     getInitialState : function () {
         return {
-            isLoading: false
+            isLoading: false,
+            errorMessage: undefined
         }
     },
 
@@ -21,9 +23,12 @@ var Weather = React.createClass({
                 temperature: temp,
                 isLoading: false
             })
-        }, (errorMessage) => {
-            this.setState({city: '', isLoading: false});
-            alert(errorMessage);
+        }, (e) => {
+            this.setState({
+                city: '',
+                isLoading: false,
+                errorMessage: e.message
+            });
         });
     },
 
@@ -31,6 +36,7 @@ var Weather = React.createClass({
         var city = this.state.city;
         var temperature = this.state.temperature;
         var isLoading = this.state.isLoading;
+        var errorMessage = this.state.errorMessage;
 
         function renderMessage() {
             if (isLoading) {
@@ -39,12 +45,21 @@ var Weather = React.createClass({
                 return <WeatherMessage city={city} temperature={temperature}/>;
             }
         }
+        
+        function renderError() {
+            if (typeof errorMessage === 'string') {
+                return (
+                    <ErrorModal title="Fehler" message="The location was not found."/>
+                )
+            }
+        }
 
         return (
             <div>
                 <h1 className="text-center">Get Weather</h1>
                 <WeatherForm onSearch={this.handleSearch} />
                 {renderMessage()}
+                {renderError()}
             </div>
         );
     }
