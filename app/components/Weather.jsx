@@ -12,9 +12,30 @@ var Weather = React.createClass({
         }
     },
 
+    componentDidMount: function() {
+        var city = this.props.location.query.location;
+        if (typeof city === 'string' && city.length > 0) {
+            this.handleSearch(city);
+            window.location.hash = '#/';
+        }
+    },
+
+    componentWillReceiveProps: function(newProps) {
+        var city = newProps.location.query.location;
+        if (typeof city === 'string' && city.length > 0) {
+            this.handleSearch(city);
+            window.location.hash = '#/';
+        }
+    },
+
     handleSearch: function (cityName) {
         // var that = this;
-        this.setState({isLoading: true});
+        this.setState({
+            isLoading: true,
+            errorMessage: undefined,
+            city: '',
+            temperature: ''
+        });
 
         // debugger;
         OpenWeatherMapAPI.getTemp(cityName).then( (temp) => {

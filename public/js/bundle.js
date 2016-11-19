@@ -26471,8 +26471,14 @@
 
 	    onSearch: function onSearch(e) {
 	        e.preventDefault();
-	        alert('Not yet wired up!');
+	        var cityName = this.refs.city.value;
+	        if (typeof cityName === 'string' && cityName.length > 0) {
+	            this.refs.city.value = '';
+	            var encodedLocation = encodeURIComponent(cityName);
+	            window.location.hash = '#/?location=' + encodedLocation;
+	        }
 	    },
+
 	    render: function render() {
 	        return React.createElement(
 	            'div',
@@ -26532,7 +26538,7 @@
 	                            React.createElement(
 	                                'li',
 	                                null,
-	                                React.createElement('input', { type: 'search', placeholder: 'Search weather by city' })
+	                                React.createElement('input', { type: 'search', placeholder: 'Search weather by city', ref: 'city' })
 	                            ),
 	                            React.createElement(
 	                                'li',
@@ -26571,11 +26577,32 @@
 	        };
 	    },
 
+	    componentDidMount: function componentDidMount() {
+	        var city = this.props.location.query.location;
+	        if (typeof city === 'string' && city.length > 0) {
+	            this.handleSearch(city);
+	            window.location.hash = '#/';
+	        }
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	        var city = newProps.location.query.location;
+	        if (typeof city === 'string' && city.length > 0) {
+	            this.handleSearch(city);
+	            window.location.hash = '#/';
+	        }
+	    },
+
 	    handleSearch: function handleSearch(cityName) {
 	        var _this = this;
 
 	        // var that = this;
-	        this.setState({ isLoading: true });
+	        this.setState({
+	            isLoading: true,
+	            errorMessage: undefined,
+	            city: '',
+	            temperature: ''
+	        });
 
 	        // debugger;
 	        OpenWeatherMapAPI.getTemp(cityName).then(function (temp) {
@@ -28399,7 +28426,7 @@
 	                    null,
 	                    React.createElement(
 	                        Link,
-	                        { to: '/?location=G\xF6ttingen' },
+	                        { to: '/?location=' + encodeURIComponent('Göttingen') },
 	                        'G\xF6ttingen, DE'
 	                    )
 	                )
