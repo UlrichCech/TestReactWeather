@@ -26611,7 +26611,7 @@
 
 	        function renderError() {
 	            if (typeof errorMessage === 'string') {
-	                return React.createElement(ErrorModal, { title: 'Fehler', message: 'The location was not found.' });
+	                return React.createElement(ErrorModal, { title: 'OpenWeather-Error', message: 'The location was not found.' });
 	            }
 	        }
 
@@ -26732,36 +26732,42 @@
 
 	    getDefaultProps: function getDefaultProps() {
 	        return {
-	            title: '',
-	            message: ''
+	            title: 'Error'
 	        };
 	    },
-
+	    propTypes: {
+	        title: React.PropTypes.string,
+	        message: React.PropTypes.string.isRequired
+	    },
 	    componentDidMount: function componentDidMount() {
 	        var modal = new Foundation.Reveal($('#error-modal'));
 	        modal.open();
 	    },
 
 	    render: function render() {
+	        var _props = this.props,
+	            title = _props.title,
+	            message = _props.message;
+
 	        return React.createElement(
 	            'div',
-	            { className: 'reveal tiny text-center', id: 'error-modal', 'data-reveal': true },
+	            { className: 'reveal tiny text-center', id: 'error-modal', 'data-reveal': '' },
 	            React.createElement(
 	                'h4',
 	                null,
-	                'Fehler'
+	                title
 	            ),
 	            React.createElement(
 	                'p',
 	                { className: 'lead' },
-	                'This is an error.'
+	                message
 	            ),
 	            React.createElement(
 	                'p',
 	                null,
 	                React.createElement(
 	                    'button',
-	                    { className: 'button hollow', 'data-close': true },
+	                    { className: 'button hollow', 'data-close': '' },
 	                    'Okay'
 	                )
 	            )

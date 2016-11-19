@@ -49,7 +49,7 @@ var Weather = React.createClass({
         function renderError() {
             if (typeof errorMessage === 'string') {
                 return (
-                    <ErrorModal title="Fehler" message="The location was not found."/>
+                    <ErrorModal title="OpenWeather-Error" message="The location was not found."/>
                 )
             }
         }
